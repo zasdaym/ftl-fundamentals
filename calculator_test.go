@@ -14,6 +14,7 @@ type testCase struct {
 }
 
 func TestAdd(t *testing.T) {
+	t.Parallel()
 	testCases := []testCase{
 		{name: "Two positive numbers", a: 2, b: 4, want: 6},
 		{name: "Two negative numbers", a: -2, b: -4, want: -6},
@@ -29,6 +30,7 @@ func TestAdd(t *testing.T) {
 }
 
 func TestAddRandom(t *testing.T) {
+	t.Parallel()
 	for i := 0; i < 100; i++ {
 		a, b := rand.Float64(), rand.Float64()
 		want := a + b
@@ -40,6 +42,7 @@ func TestAddRandom(t *testing.T) {
 }
 
 func TestSubtract(t *testing.T) {
+	t.Parallel()
 	testCases := []testCase{
 		{name: "Two positive numbers with positive result", a: 4, b: 2, want: 2},
 		{name: "Two positive numbers with negative result", a: 2, b: 4, want: -2},
@@ -56,6 +59,7 @@ func TestSubtract(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
+	t.Parallel()
 	testCases := []testCase{
 		{name: "Two positive numbers", a: 4, b: 2, want: 8},
 		{name: "Two negative numbers", a: -2, b: -2, want: 4},
@@ -71,15 +75,16 @@ func TestMultiply(t *testing.T) {
 	}
 }
 
-type testCaseWithError struct {
-	name      string
-	a, b      float64
-	want      float64
-	expectErr bool
-}
-
 func TestDivide(t *testing.T) {
-	testCases := []testCaseWithError{
+	t.Parallel()
+	type testCase struct {
+		name      string
+		a, b      float64
+		want      float64
+		expectErr bool
+	}
+
+	testCases := []testCase{
 		{name: "Normal case", a: 12, b: 3, want: 4, expectErr: false},
 		{name: "Divide by zero", a: 12, b: 0, want: 0, expectErr: true},
 	}
@@ -97,15 +102,16 @@ func TestDivide(t *testing.T) {
 	}
 }
 
-type testCaseSqrt struct {
-	name      string
-	a         float64
-	want      float64
-	expectErr bool
-}
-
 func TestSqrt(t *testing.T) {
-	testCases := []testCaseSqrt{
+	t.Parallel()
+	type testCase struct {
+		name      string
+		a         float64
+		want      float64
+		expectErr bool
+	}
+
+	testCases := []testCase{
 		{name: "Round sqrt", a: 4, want: 2, expectErr: false},
 		{name: "Floating result", a: 5, want: 2.2360679, expectErr: false},
 		{name: "Invalid number", a: -4, want: -1, expectErr: true},
